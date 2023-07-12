@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Input from '@/app/components/Input';
 
 const NEW_USER = {
@@ -61,11 +61,13 @@ export default function Auth() {
             </button>
             <p>{variant.toggleButtonPrompt}</p>
             <button
-                onClick={() =>
-                    setVariant(
-                        variant.userType === 'new' ? EXISTING_USER : NEW_USER
-                    )
-                }
+                onClick={useCallback(() => {
+                    setVariant((currVariant) =>
+                        currVariant.userType === 'new'
+                            ? EXISTING_USER
+                            : NEW_USER
+                    );
+                }, [])}
             >
                 {variant.toggleButtonText}
             </button>
