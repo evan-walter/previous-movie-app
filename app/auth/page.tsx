@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import axios from 'axios';
 import Input from '@/app/components/Input';
 
 const NEW_USER = {
@@ -23,6 +24,18 @@ export default function Auth() {
 	const [password, setPassword] = useState('');
 
 	const [variant, setVariant] = useState(EXISTING_USER);
+
+	const register = useCallback(async () => {
+		try {
+			await axios.post('/api/auth/register', {
+				name,
+				email,
+				password,
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	}, []);
 
 	return (
 		<div>
