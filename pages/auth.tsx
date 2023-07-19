@@ -1,8 +1,6 @@
-'use client';
-
 import { useState, useCallback } from 'react';
 import axios from 'axios';
-import Input from '@/app/components/Input';
+import Input from '@/components/Input';
 
 const NEW_USER = {
 	userType: 'new',
@@ -27,15 +25,15 @@ export default function Auth() {
 
 	const register = useCallback(async () => {
 		try {
-			await axios.post('/api/auth/register', {
-				name,
+			await axios.post('/api/register', {
 				email,
+				name,
 				password,
-			}
+			});
 		} catch (error) {
 			console.log(error);
 		}
-	}, []);
+	}, [email, name, password]);
 
 	return (
 		<div>
@@ -69,7 +67,7 @@ export default function Auth() {
 				type='password'
 				value={password}
 			/>
-			<button className='rounded-full py-2 px-4 bg-blue-600'>
+			<button onClick={register} className='rounded-full py-2 px-4 bg-blue-600'>
 				{variant.mainPrompt}
 			</button>
 			<p>{variant.toggleButtonPrompt}</p>
